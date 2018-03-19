@@ -1,0 +1,126 @@
+2018-03-18 17:33:04 pid:20014 Workerman[start.php] start in DEBUG mode
+2018-03-18 17:33:53 pid:20014 Workerman[start.php] stopping ...
+2018-03-18 17:33:53 pid:20014 Workerman[start.php] has been stopped
+2018-03-18 17:38:42 pid:20072 Workerman[start.php] start in DEBUG mode
+2018-03-18 17:43:40 pid:20072 Workerman[start.php] stopping ...
+2018-03-18 17:43:40 pid:20072 Workerman[start.php] has been stopped
+2018-03-18 19:26:30 pid:20837 Workerman[start.php] start in DEBUG mode
+2018-03-18 19:27:44 pid:20837 Workerman[start.php] stopping ...
+2018-03-18 19:27:44 pid:20837 Workerman[start.php] has been stopped
+2018-03-18 19:39:24 pid:20960 Workerman[start.php] start in DEBUG mode
+2018-03-18 19:46:56 pid:20960 Workerman[start.php] stopping ...
+2018-03-18 19:46:56 pid:20960 Workerman[start.php] has been stopped
+2018-03-19 23:45:53 pid:10176 Workerman[start.php] start in DEBUG mode
+2018-03-19 23:45:53 pid:10184 Exception: Address already in use in /Users/alexleung/Documents/GatewayWorker/vendor/workerman/workerman/Worker.php:1960
+Stack trace:
+#0 /Users/alexleung/Documents/GatewayWorker/vendor/workerman/gateway-worker/src/Gateway.php(482): Workerman\Worker->listen()
+#1 [internal function]: GatewayWorker\Gateway->onWorkerStart(Object(GatewayWorker\Gateway))
+#2 /Users/alexleung/Documents/GatewayWorker/vendor/workerman/workerman/Worker.php(2081): call_user_func(Array, Object(GatewayWorker\Gateway))
+#3 /Users/alexleung/Documents/GatewayWorker/vendor/workerman/gateway-worker/src/Gateway.php(279): Workerman\Worker->run()
+#4 /Users/alexleung/Documents/GatewayWorker/vendor/workerman/workerman/Worker.php(1294): GatewayWorker\Gateway->run()
+#5 /Users/alexleung/Documents/GatewayWorker/vendor/workerman/workerman/Worker.php(1127): Workerman\Worker::forkOneWorkerForLinux(Object(GatewayWorker\Gateway))
+#6 /Users/alexleung/Documents/GatewayWorker/vendor/workerman/workerman/Worker.php(1100): Workerman\Worker::forkWorkersForLinux()
+#7 /Users/alexleung/Documents/GatewayWorker/vendor/workerman/workerman/Worker.php(459): Workerman\Worker::forkWorkers()
+#8 /Users/alexleung/Documents/GatewayWorker/start.php(37): Workerman\Worker::runAll()
+#9 {main}
+2018-03-19 23:45:53 pid:10185 Exception: Address already in use in /Users/alexleung/Documents/GatewayWorker/vendor/workerman/workerman/Worker.php:1960
+Stack trace:
+#0 /Users/alexleung/Documents/GatewayWorker/vendor/workerman/gateway-worker/src/Gateway.php(482): Workerman\Worker->listen()
+#1 [internal function]: GatewayWorker\Gateway->onWorkerStart(Object(GatewayWorker\Gateway))
+#2 /Users/alexleung/Documents/GatewayWorker/vendor/workerman/workerman/Worker.php(2081): call_user_func(Array, Object(GatewayWorker\Gateway))
+#3 /Users/alexleung/Documents/GatewayWorker/vendor/workerman/gateway-worker/src/Gateway.php(279): Workerman\Worker->run()
+#4 /Users/alexleung/Documents/GatewayWorker/vendor/workerman/workerman/Worker.php(1294): GatewayWorker\Gateway->run()
+#5 /Users/alexleung/Documents/GatewayWorker/vendor/workerman/workerman/Worker.php(1127): Workerman\Worker::forkOneWorkerForLinux(Object(GatewayWorker\Gateway))
+#6 /Users/alexleung/Documents/GatewayWorker/vendor/workerman/workerman/Worker.php(1100): Workerman\Worker::forkWorkersForLinux()
+#7 /Users/alexleung/Documents/GatewayWorker/vendor/workerman/workerman/Worker.php(459): Workerman\Worker::forkWorkers()
+#8 /Users/alexleung/Documents/GatewayWorker/start.php(37): Workerman\Worker::runAll()
+#9 {main}
+2018-03-19 23:45:54 pid:10184 Worker process terminated
+2018-03-19 23:45:54 pid:10176 worker[HealthTrackerGateway:10184] exit with status 64000
+2018-03-19 23:45:54 pid:10185 Worker process terminated
+2018-03-19 23:45:54 pid:10186 Exception: Address already in use in /Users/alexleung/Documents/GatewayWorker/vendor/workerman/workerman/Worker.php:1960
+Stack trace:
+#0 /Users/alexleung/Documents/GatewayWorker/vendor/workerman/gateway-worker/src/Gateway.php(482): Workerman\Worker->listen()
+#1 [internal function]: GatewayWorker\Gateway->onWorkerStart(Object(GatewayWorker\Gateway))
+#2 /Users/alexleung/Documents/GatewayWorker/vendor/workerman/workerman/Worker.php(2081): call_user_func(Array, Object(GatewayWorker\Gateway))
+#3 /Users/alexleung/Documents/GatewayWorker/vendor/workerman/gateway-worker/src/Gateway.php(279): Workerman\Worker->run()
+#4 /Users/alexleung/Documents/GatewayWorker/vendor/workerman/workerman/Worker.php(1294): GatewayWorker\Gateway->run()
+#5 /Users/alexleung/Documents/GatewayWorker/vendor/workerman/workerman/Worker.php(1127): Workerman\Worker::forkOneWorkerForLinux(Object(GatewayWorker\Gateway))
+#6 /Users/alexleung/Documents/GatewayWorker/vendor/workerman/workerman/Worker.php(1100): Workerman\Worker::forkWorkersForLinux()
+#7 /Users/alexleung/Documents/GatewayWorker/vendor/workerman/workerman/Worker.php(1426): Workerman\Worker::forkWorkers()
+#8 /Users/alexleung/Documents/GatewayWorker/vendor/workerman/workerman/Worker.php(1375): Workerman\Worker::monitorWorkersForLinux()
+#9 /Users/alexleung/Documents/GatewayWorker/vendor/workerman/workerman/Worker.php(461): Workerman\Worker::monitorWorkers()
+#10 /Users/alexleung/Documents/GatewayWorker/start.php(37): Workerman\Worker::runAll()
+#11 {main}
+2018-03-19 23:45:54 pid:10176 worker[HealthTrackerGateway:10185] exit with status 64000
+2018-03-19 23:45:54 pid:10187 Exception: Address already in use in /Users/alexleung/Documents/GatewayWorker/vendor/workerman/workerman/Worker.php:1960
+Stack trace:
+#0 /Users/alexleung/Documents/GatewayWorker/vendor/workerman/gateway-worker/src/Gateway.php(482): Workerman\Worker->listen()
+#1 [internal function]: GatewayWorker\Gateway->onWorkerStart(Object(GatewayWorker\Gateway))
+#2 /Users/alexleung/Documents/GatewayWorker/vendor/workerman/workerman/Worker.php(2081): call_user_func(Array, Object(GatewayWorker\Gateway))
+#3 /Users/alexleung/Documents/GatewayWorker/vendor/workerman/gateway-worker/src/Gateway.php(279): Workerman\Worker->run()
+#4 /Users/alexleung/Documents/GatewayWorker/vendor/workerman/workerman/Worker.php(1294): GatewayWorker\Gateway->run()
+#5 /Users/alexleung/Documents/GatewayWorker/vendor/workerman/workerman/Worker.php(1127): Workerman\Worker::forkOneWorkerForLinux(Object(GatewayWorker\Gateway))
+#6 /Users/alexleung/Documents/GatewayWorker/vendor/workerman/workerman/Worker.php(1100): Workerman\Worker::forkWorkersForLinux()
+#7 /Users/alexleung/Documents/GatewayWorker/vendor/workerman/workerman/Worker.php(1426): Workerman\Worker::forkWorkers()
+#8 /Users/alexleung/Documents/GatewayWorker/vendor/workerman/workerman/Worker.php(1375): Workerman\Worker::monitorWorkersForLinux()
+#9 /Users/alexleung/Documents/GatewayWorker/vendor/workerman/workerman/Worker.php(461): Workerman\Worker::monitorWorkers()
+#10 /Users/alexleung/Documents/GatewayWorker/start.php(37): Workerman\Worker::runAll()
+#11 {main}
+2018-03-19 23:45:55 pid:10186 Worker process terminated
+2018-03-19 23:45:55 pid:10176 worker[HealthTrackerGateway:10186] exit with status 64000
+2018-03-19 23:45:55 pid:10187 Worker process terminated
+2018-03-19 23:45:55 pid:10189 Exception: Address already in use in /Users/alexleung/Documents/GatewayWorker/vendor/workerman/workerman/Worker.php:1960
+Stack trace:
+#0 /Users/alexleung/Documents/GatewayWorker/vendor/workerman/gateway-worker/src/Gateway.php(482): Workerman\Worker->listen()
+#1 [internal function]: GatewayWorker\Gateway->onWorkerStart(Object(GatewayWorker\Gateway))
+#2 /Users/alexleung/Documents/GatewayWorker/vendor/workerman/workerman/Worker.php(2081): call_user_func(Array, Object(GatewayWorker\Gateway))
+#3 /Users/alexleung/Documents/GatewayWorker/vendor/workerman/gateway-worker/src/Gateway.php(279): Workerman\Worker->run()
+#4 /Users/alexleung/Documents/GatewayWorker/vendor/workerman/workerman/Worker.php(1294): GatewayWorker\Gateway->run()
+#5 /Users/alexleung/Documents/GatewayWorker/vendor/workerman/workerman/Worker.php(1127): Workerman\Worker::forkOneWorkerForLinux(Object(GatewayWorker\Gateway))
+#6 /Users/alexleung/Documents/GatewayWorker/vendor/workerman/workerman/Worker.php(1100): Workerman\Worker::forkWorkersForLinux()
+#7 /Users/alexleung/Documents/GatewayWorker/vendor/workerman/workerman/Worker.php(1426): Workerman\Worker::forkWorkers()
+#8 /Users/alexleung/Documents/GatewayWorker/vendor/workerman/workerman/Worker.php(1375): Workerman\Worker::monitorWorkersForLinux()
+#9 /Users/alexleung/Documents/GatewayWorker/vendor/workerman/workerman/Worker.php(461): Workerman\Worker::monitorWorkers()
+#10 /Users/alexleung/Documents/GatewayWorker/start.php(37): Workerman\Worker::runAll()
+#11 {main}
+2018-03-19 23:45:55 pid:10176 worker[HealthTrackerGateway:10187] exit with status 64000
+2018-03-19 23:45:55 pid:10190 Exception: Address already in use in /Users/alexleung/Documents/GatewayWorker/vendor/workerman/workerman/Worker.php:1960
+Stack trace:
+#0 /Users/alexleung/Documents/GatewayWorker/vendor/workerman/gateway-worker/src/Gateway.php(482): Workerman\Worker->listen()
+#1 [internal function]: GatewayWorker\Gateway->onWorkerStart(Object(GatewayWorker\Gateway))
+#2 /Users/alexleung/Documents/GatewayWorker/vendor/workerman/workerman/Worker.php(2081): call_user_func(Array, Object(GatewayWorker\Gateway))
+#3 /Users/alexleung/Documents/GatewayWorker/vendor/workerman/gateway-worker/src/Gateway.php(279): Workerman\Worker->run()
+#4 /Users/alexleung/Documents/GatewayWorker/vendor/workerman/workerman/Worker.php(1294): GatewayWorker\Gateway->run()
+#5 /Users/alexleung/Documents/GatewayWorker/vendor/workerman/workerman/Worker.php(1127): Workerman\Worker::forkOneWorkerForLinux(Object(GatewayWorker\Gateway))
+#6 /Users/alexleung/Documents/GatewayWorker/vendor/workerman/workerman/Worker.php(1100): Workerman\Worker::forkWorkersForLinux()
+#7 /Users/alexleung/Documents/GatewayWorker/vendor/workerman/workerman/Worker.php(1426): Workerman\Worker::forkWorkers()
+#8 /Users/alexleung/Documents/GatewayWorker/vendor/workerman/workerman/Worker.php(1375): Workerman\Worker::monitorWorkersForLinux()
+#9 /Users/alexleung/Documents/GatewayWorker/vendor/workerman/workerman/Worker.php(461): Workerman\Worker::monitorWorkers()
+#10 /Users/alexleung/Documents/GatewayWorker/start.php(37): Workerman\Worker::runAll()
+#11 {main}
+2018-03-19 23:45:56 pid:10176 Workerman[start.php] stopping ...
+2018-03-19 23:45:56 pid:10189 Worker process terminated
+2018-03-19 23:45:56 pid:10190 Worker process terminated
+2018-03-19 23:45:56 pid:10176 worker[HealthTrackerGateway:10189] exit with status 64000
+2018-03-19 23:45:56 pid:10176 worker[HealthTrackerGateway:10190] exit with status 64000
+2018-03-19 23:45:56 pid:10176 Workerman[start.php] has been stopped
+2018-03-19 23:46:22 pid:10196 Workerman[start.php] start in DEBUG mode
+2018-03-19 23:46:29 pid:10196 Workerman[start.php] stopping ...
+2018-03-19 23:46:29 pid:10196 Workerman[start.php] has been stopped
+2018-03-19 23:46:46 pid:10212 Workerman[start.php] start in DEBUG mode
+2018-03-19 23:52:48 pid:10212 Workerman[start.php] stopping ...
+2018-03-19 23:52:48 pid:10212 Workerman[start.php] has been stopped
+2018-03-20 00:03:56 pid:10459 Workerman[start.php] start in DEBUG mode
+2018-03-20 00:04:36 pid:10459 Workerman[start.php] stopping ...
+2018-03-20 00:04:37 pid:10459 Workerman[start.php] has been stopped
+2018-03-20 00:04:38 pid:10478 Workerman[start.php] start in DEBUG mode
+2018-03-20 00:05:01 pid:10478 Workerman[start.php] stopping ...
+2018-03-20 00:05:01 pid:10478 Workerman[start.php] has been stopped
+2018-03-20 00:05:10 pid:10494 Workerman[start.php] start in DEBUG mode
+2018-03-20 00:05:20 pid:10494 Workerman[start.php] stopping ...
+2018-03-20 00:05:20 pid:10494 Workerman[start.php] has been stopped
+2018-03-20 00:05:38 pid:10510 Workerman[start.php] start in DEBUG mode
+2018-03-20 00:12:54 pid:10510 Workerman[start.php] stopping ...
+2018-03-20 00:12:54 pid:10510 Workerman[start.php] has been stopped
+2018-03-20 00:12:57 pid:10609 Workerman[start.php] start in DEBUG mode
