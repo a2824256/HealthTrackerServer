@@ -1,66 +1,144 @@
 <?php
-/**
- * This file is part of workerman.
- *
- * Licensed under The MIT License
- * For full copyright and license information, please see the MIT-LICENSE.txt
- * Redistributions of files must retain the above copyright notice.
- *
- * @author walkor<walkor@workerman.net>
- * @copyright walkor<walkor@workerman.net>
- * @link http://www.workerman.net/
- * @license http://www.opensource.org/licenses/mit-license.php MIT License
- */
 
-/**
- * 用于检测业务代码死循环或者长时间阻塞等问题
- * 如果发现业务卡死，可以将下面declare打开（去掉//注释），并执行php start.php reload
- * 然后观察一段时间workerman.log看是否有process_timeout异常
- */
 //declare(ticks=1);
 
 use \GatewayWorker\Lib\Gateway;
 
-/**
- * 主逻辑
- * 主要是处理 onConnect onMessage onClose 三个方法
- * onConnect 和 onClose 如果不需要可以不用实现并删除
- */
+include "RedisHandle.php";
+
 class Events
 {
-    public static $arr=[];
     /**
      * 当客户端连接时触发
      * 如果业务不需此回调可以删除onConnect
-     * 
+     *
      * @param int $client_id 连接id
      */
-    public static function onConnect($client_id) {
-        // 向当前client_id发送数据 
-        //Gateway::sendToClient($client_id, "Hello $client_id\n");
-        // 向所有人发送
-        //Gateway::sendToAll("$client_id login\n");
+    public static function onConnect($client_id)
+    {
+        echo $client_id . " connect success \n";
     }
-    
-   /**
-    * 当客户端发来消息时触发
-    * @param int $client_id 连接id
-    * @param mixed $message 具体消息
-    */
-   public static function onMessage($client_id, $message) {
-        // 向所有人发送
-        self::$arr[]=$message;
-        echo $message;
-        $mes = json_encode(self::$arr,true);
-        Gateway::sendToAll("$mes");
-   }
-   
-   /**
-    * 当用户断开连接时触发
-    * @param int $client_id 连接id
-    */
-   public static function onClose($client_id) {
-       // 向所有人发送 
-       GateWay::sendToAll("$client_id logout");
-   }
+
+    /**
+     * @param int $client_id connect id
+     * @param mixed $message
+     */
+    public static function onMessage($client_id, $message)
+    {
+        $res = json_decode($message, true);
+        switch ($res["type"]) {
+            case "socket":
+                $redis = RedisHandle::getInstance();
+                $cid = $redis->hMGet("did:" . $res['dev_id'], ["client_id"])['client_id'];
+                if ($cid != null) {
+                    $send_data["data"]["ac"] = [$res["ac"]["x"], $res["ac"]["y"], $res["ac"]["z"]];
+                    $send_data["data"]["tm"] = $res["t1"] . "." . $res["t2"];
+                    $send_data["data"]["hr"] = $res["h"];
+                    $send_data["data"]["spo2"] = $res["s"];
+                    $send_data["state"] = 4;
+                    echo json_encode($send_data) . "\n";
+                    Gateway::sendToClient($cid, json_encode($send_data));
+                } else {
+                    echo "die\n";
+                }
+                break;
+            case "websocket":
+                switch ($res["action"]) {
+                    case "connect":
+                        $rt_data["state"] = 2;
+                        Gateway::sendToClient($client_id, json_encode($rt_data));
+                        break;
+                    case "login":
+                        $rt_data = self::checkLogin($client_id, $res["account"], $res["password"]);
+                        Gateway::sendToClient($client_id, json_encode($rt_data));
+                        break;
+                    case "register":
+                        $rt_data = self::register($client_id, $res["account"], $res["password"], $res["dev_id"]);
+                        Gateway::sendToClient($client_id, json_encode($rt_data));
+                        break;
+                    case "sign_out":
+                        echo $client_id . " sign out\n";
+                        $rt_data["state"] = 2;
+                        self::signOut($client_id);
+                        Gateway::sendToClient($client_id, json_encode($rt_data));
+                        break;
+                    default:
+                        $rt_data["reason"] = "Undefine action!";
+                        Gateway::sendToClient($client_id, json_encode($rt_data));
+                }
+                break;
+            default:
+                $rt_data["reason"] = "Undefine type!";
+                Gateway::sendToClient($client_id, json_encode($rt_data));
+                Gateway::closeCurrentClient();
+                break;
+        }
+    }
+
+    /**
+     * @param int $client_id 连接id
+     */
+    public static function onClose($client_id)
+    {
+        echo "$client_id logout\n";
+        self::signOut($client_id);
+    }
+
+    private static function signOut($client_id)
+    {
+        $redis = RedisHandle::getInstance();
+        $info = $redis->hMGet("cid:" . $client_id, ['account', 'dev_id']);
+        $redis->hdel($info['account'], $info['dev_id'], $client_id);
+    }
+
+
+    private static function checkLogin($client_id, $account, $password)
+    {
+        $redis = RedisHandle::getInstance();
+        $rt_data = [];
+        //1 Does user sign in
+        if ($redis->exists("aid:" . $account)) {
+            //2. If password is correct
+            $rpass = $redis->hGetAll("aid:" . $account)['password'];
+            if ($rpass == $password) {
+                //3. login success
+                $dev_id = $redis->hMGet("aid:" . $account, ["dev_id"])['dev_id'];
+                self::matchUser($account, $client_id, $dev_id);
+                $rt_data["reason"] = "Login success.";
+                $rt_data["dev_id"] = $dev_id;
+                $rt_data["account"] = $account;
+                $rt_data["state"] = 3;
+            } else {
+                $rt_data["reason"] = "Password is not correct.";
+            }
+        } else {
+            $rt_data["reason"] = "Account or password error.";
+        }
+        return $rt_data;
+    }
+
+    private static function matchUser($account, $client_id, $dev_id)
+    {
+        $redis = RedisHandle::getInstance();
+        $redis->hMset("did:" . $dev_id, array("account" => (string)$account, "client_id" => (string)$client_id));
+//        $arr2 = ["account" => $account, "dev_id" => $dev_id];
+        $redis->hMset("cid:" . $client_id, array("account" => (string)$account, "dev_id" => (string)$dev_id));
+    }
+
+    private static function register($client_id, $account, $password, $dev_id)
+    {
+        $redis = RedisHandle::getInstance();
+        if ($redis->exists("aid:" . $account)) {
+            $rt_data["reason"] = "This account already exist.";
+            return $rt_data;
+        } else {
+            $redis->hMset("aid:" . $account, ["password" => $password, "client_id" => $client_id, "dev_id" => $dev_id]);
+            self::matchUser($account, $client_id, $dev_id);
+            $rt_data["reason"] = "Register success.";
+            $rt_data["dev_id"] = $dev_id;
+            $rt_data["account"] = $account;
+            $rt_data["state"] = 3;
+            return $rt_data;
+        }
+    }
 }
